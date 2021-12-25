@@ -38,14 +38,15 @@ down :: Int -> (Int, Int, Int) -> (Int, Int, Int)
 down value (x, y, z) = (x, y + value, z)
 
 aoc2 :: [(Int, Int, Int) -> (Int, Int, Int)] -> (Int, Int, Int)
-aoc2 fs = foldl1 (.) fs (0, 0, 0)
+aoc2 fs = foldl1 (flip (.)) fs (0, 0, 0)
 
 aoc2a :: [(Int, Int, Int) -> (Int, Int, Int)] -> Int
 aoc2a xs = (\(x, y, _) -> x * y) $ aoc2 xs
 
 aoc2b :: [(Int, Int, Int) -> (Int, Int, Int)] -> Int
-aoc2b xs = (\(x, _, z) -> x * z) $ aoc2 $ reverse xs
+aoc2b xs = (\(x, _, z) -> x * z) $ aoc2 $ xs
 
+main :: IO ()
 main = do
   putStrLn "AOC 1"
   putStr $ show $ aoc1a aoc1Input
